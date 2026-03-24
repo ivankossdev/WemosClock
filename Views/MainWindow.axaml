@@ -1,0 +1,49 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:WemosClock.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="WemosClock.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="WemosClock"
+        Width="600"
+        Height="400">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Левая колонка -->
+        <DockPanel Grid.Column="0" Margin="10">
+            <TextBlock DockPanel.Dock="Top" 
+                       Text="{Binding Greeting}" 
+                       FontWeight="Bold" 
+                       Margin="0,0,0,10"/>
+            <StackPanel>
+                <!-- Добавьте сюда содержимое левой колонки -->
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Вертикальный разделитель -->
+        <Rectangle Grid.Column="1"
+                   Width="1"
+                   Fill="Gray"
+                   Margin="0,10"
+                   HorizontalAlignment="Center"/>
+                   
+        <StackPanel Grid.Column="2"
+                    Orientation="Vertical"
+                    Margin="10">
+            <!-- Добавьте сюда содержимое правой колонки -->
+        </StackPanel>
+    </Grid>
+</Window>
