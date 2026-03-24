@@ -2,5 +2,5 @@
 
 clear
 echo "Старт программы"
-dotnet clean
+# dotnet clean
 dotnet run

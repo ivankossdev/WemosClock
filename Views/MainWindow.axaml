@@ -24,12 +24,18 @@
 
         <!-- Левая колонка -->
         <DockPanel Grid.Column="0" Margin="10">
-            <TextBlock DockPanel.Dock="Top" 
-                       Text="{Binding Greeting}" 
-                       FontWeight="Bold" 
-                       Margin="0,0,0,10"/>
+
             <StackPanel>
-                <!-- Добавьте сюда содержимое левой колонки -->
+                <TextBlock DockPanel.Dock="Top" 
+                        Text="{Binding Greeting}" 
+                        FontWeight="Bold" 
+                        Margin="0,0,0,10"
+                        />
+                <Button Content="Найти устройство" 
+                        Command="{Binding Search}"
+                        Margin="0,0,0,10" 
+                        />
+                
             </StackPanel>
         </DockPanel>
 
