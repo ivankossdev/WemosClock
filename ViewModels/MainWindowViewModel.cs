@@ -1,24 +1,17 @@
 ﻿using System;
+using ReactiveUI;
 
 namespace WemosClock.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase
+public partial class MainWindowViewModel : ReactiveObject
 {
-    public string Greeting { get; } = "Поиск устройств";
-    private string _resultText = "Результат\n";
-
-    public string ResultText
-    {
-        get => _resultText;
-        set
+        private string _greeting = "Поиск устройств";
+        public string Greeting
         {
-            _resultText = value;
-            OnPropertyChanged();
+            get => _greeting;
+            set => this.RaiseAndSetIfChanged(ref _greeting, value);
         }
-    }
 
-    public void Search()
-    {
-        ResultText += "Найдено устройство: " + DateTime.Now + "\n";
-    }
+        // Свойство, содержащее ViewModel для поиска
+        public SearchViewModel SearchVM { get; } = new SearchViewModel();
 }
