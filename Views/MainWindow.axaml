@@ -8,7 +8,7 @@
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="WemosClock"
-        Width="600"
+        Width="800"
         Height="400">
 
     <Design.DataContext>
