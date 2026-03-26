@@ -54,7 +54,7 @@
                     Margin="0,5"
                     Grid.Row="0"/>
 
-            <TextBox Text="{Binding ResultText}"
+            <TextBox Text="{Binding NewResultText}"
                     IsReadOnly="True"
                     TextWrapping="Wrap"
                     Margin="0,5"

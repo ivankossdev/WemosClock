@@ -1,17 +1,12 @@
-﻿using System;
-using ReactiveUI;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace WemosClock.ViewModels;
-
-public partial class MainWindowViewModel : ReactiveObject
+namespace WemosClock.ViewModels
 {
+    public partial class MainWindowViewModel : ObservableObject
+    {
+        [ObservableProperty]
         private string _greeting = "Поиск устройств";
-        public string Greeting
-        {
-            get => _greeting;
-            set => this.RaiseAndSetIfChanged(ref _greeting, value);
-        }
 
-        // Свойство, содержащее ViewModel для поиска
         public SearchViewModel SearchVM { get; } = new SearchViewModel();
+    }
 }
