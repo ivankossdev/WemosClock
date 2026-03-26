@@ -1,29 +1,18 @@
-using Avalonia.ReactiveUI;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Reactive;
 
 namespace WemosClock.ViewModels
 {
-    public class SearchViewModel : ReactiveObject
+    public partial class SearchViewModel : ObservableObject
     {
-        private string _resultText = "Результат\n";
-        public string ResultText
-        {
-            get => _resultText;
-            set => this.RaiseAndSetIfChanged(ref _resultText, value);
-        }
+        [ObservableProperty]
+        private string _newResultText  = "Результат\n";
 
-        public ReactiveCommand<Unit, Unit> SearchCommand { get; }
-
-        public SearchViewModel()
-        {
-            SearchCommand = ReactiveCommand.Create(Search, outputScheduler: AvaloniaScheduler.Instance);
-        }
-
+        [RelayCommand]
         private void Search()
         {
-            ResultText += "Найдено устройство: " + DateTime.Now + "\n";
+            NewResultText += "Найдено устройство: " + DateTime.Now + "\n";
         }
     }
 }
