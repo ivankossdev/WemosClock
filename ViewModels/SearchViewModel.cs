@@ -13,6 +13,18 @@ namespace WemosClock.ViewModels
         private int count = 0; 
         private bool isSearch = false; 
 
+        [ObservableProperty]
+        private string? _selectedDevice; // выбранный элемент
+
+        // При изменении выбранного элемента можно выполнить действия
+        partial void  OnSelectedDeviceChanged(string? value)
+        {
+            if (value != null)
+            {
+                Console.WriteLine($"Выбрано: {value}");
+            }
+        }
+
         [RelayCommand]
         private async Task Search()
         {
