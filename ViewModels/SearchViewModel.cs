@@ -29,5 +29,10 @@ namespace WemosClock.ViewModels
             count = 0;
         }
         
+        [RelayCommand]
+        private void Clear()
+        {
+            NewResultText = string.Empty;
+        }
     }
 }
