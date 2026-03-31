@@ -83,6 +83,7 @@ namespace WemosClock.ViewModels
             IsListVisible = true;
             isBusy = false; 
             IsEnablad = true;
+            SelectedDevice = null;
         }
 
     }
