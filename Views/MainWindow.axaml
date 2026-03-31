@@ -85,7 +85,7 @@
                             VerticalAlignment="Top"
                             Grid.Row="0"/>
 
-                    <TextBox Text="Здесь может быть ваш текст"
+                    <TextBox Text="{Binding ResultText}"
                             IsReadOnly="True"
                             TextWrapping="Wrap"
                             Margin="0,5"
