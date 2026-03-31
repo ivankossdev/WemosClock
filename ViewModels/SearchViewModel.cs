@@ -8,15 +8,33 @@ namespace WemosClock.ViewModels
 {
     public partial class SearchViewModel : ObservableObject
     {
+
+        /// <summary>
+        /// Найденные устройства
+        /// </summary>
         [ObservableProperty]
         private ObservableCollection<string> _devices = [];
+
+        /// <summary>
+        /// управляет видимостью списка
+        /// </summary>
+        [ObservableProperty]
+        private bool _isListVisible = true;  
+
+        /// <summary>
+        /// Количество найденных устройств
+        /// </summary>
         private int count = 0; 
+
+        /// <summary>
+        /// Блокирует очистку списка пока идет поиск оборудования 
+        /// </summary>
         private bool isSearch = false; 
 
         [ObservableProperty]
         private string? _selectedDevice; // выбранный элемент
 
-        // При изменении выбранного элемента можно выполнить действия
+        
         partial void  OnSelectedDeviceChanged(string? value)
         {
             if (value != null)
@@ -50,5 +68,11 @@ namespace WemosClock.ViewModels
             if(!isSearch)
                 Devices.Clear();
         }
+
+        [RelayCommand]
+        private void HideList() => IsListVisible = false;
+
+        [RelayCommand]
+        private void ShowList() => IsListVisible = true;
     }
 }
