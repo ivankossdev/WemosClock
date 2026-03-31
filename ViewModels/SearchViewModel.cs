@@ -8,7 +8,7 @@ namespace WemosClock.ViewModels
 {
     public partial class SearchViewModel : ObservableObject
     {
-
+        readonly Random Rnd = new();
         /// <summary>
         /// Найденные устройства
         /// </summary>
@@ -49,11 +49,10 @@ namespace WemosClock.ViewModels
             Devices.Clear();
             isSearch = true; 
 
-            Random rnd = new();
-            for (int i = 0; i < rnd.Next(2, 50); i++)
+            for (int i = 0; i < Rnd.Next(2, 50); i++)
             {
                 
-                await Task.Delay(rnd.Next(100, 1500)); // имитация долгой операции
+                await Task.Delay(Rnd.Next(100, 1500)); // имитация долгой операции
                 
                 Devices.Add($"[ {count += 1} ]\t" + DateTime.Now);
             }
