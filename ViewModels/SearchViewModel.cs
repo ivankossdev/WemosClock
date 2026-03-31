@@ -61,7 +61,7 @@ namespace WemosClock.ViewModels
             isBusy = true; 
             count = 0;
 
-            for (int i = 0; i < Rnd.Next(2, 50); i++)
+            for (int i = 0; i < Rnd.Next(2, 10); i++)
             {
                 await Task.Delay(Rnd.Next(100, 1500)); // имитация долгой операции
                 Devices.Add($"[ {count += 1} ]\t" + DateTime.Now);
