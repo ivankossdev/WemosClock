@@ -55,16 +55,9 @@
                 <RowDefinition Height="*"/>      <!-- строка для TextBox, занимает всё оставшееся место -->
             </Grid.RowDefinitions>
             <!-- Кликабельный заголовок -->
-            <Button Grid.Row="0"
-                    Command="{Binding HideListCommand}"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Padding="0"
-                    Cursor="Hand">
-                <TextBlock Text="Найденные устройства" 
-                        FontWeight="Bold" 
-                        Margin="0,5"/>
-            </Button>
+            <TextBlock Text="Найденные устройства" 
+                    FontWeight="Bold" 
+                    Margin="0,5"/>
             <ListBox Grid.Row="1"
                     ItemsSource="{Binding Devices}"
                     SelectedItem="{Binding SelectedDevice}"

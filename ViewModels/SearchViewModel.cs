@@ -33,12 +33,12 @@ namespace WemosClock.ViewModels
 
         [ObservableProperty]
         private string? _selectedDevice; // выбранный элемент
-
         
         partial void  OnSelectedDeviceChanged(string? value)
         {
             if (value != null)
             {
+                IsListVisible = false;
                 Console.WriteLine($"Выбрано: {value}");
             }
         }
@@ -48,15 +48,13 @@ namespace WemosClock.ViewModels
         {
             Devices.Clear();
             isSearch = true; 
+            count = 0;
 
             for (int i = 0; i < Rnd.Next(2, 50); i++)
             {
-                
                 await Task.Delay(Rnd.Next(100, 1500)); // имитация долгой операции
-                
                 Devices.Add($"[ {count += 1} ]\t" + DateTime.Now);
             }
-            count = 0;
 
             isSearch = false;
         }
@@ -67,9 +65,6 @@ namespace WemosClock.ViewModels
             if(!isSearch)
                 Devices.Clear();
         }
-
-        [RelayCommand]
-        private void HideList() => IsListVisible = false;
 
         [RelayCommand]
         private void ShowList() => IsListVisible = true;
