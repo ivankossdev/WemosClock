@@ -29,16 +29,27 @@ namespace WemosClock.ViewModels
         /// <summary>
         /// Блокирует очистку списка пока идет поиск оборудования 
         /// </summary>
-        private bool isSearch = false; 
+        private bool isBusy = false; 
 
+        /// <summary>
+        /// Делает актикной кнопку либо неактивной. 
+        /// </summary>
         [ObservableProperty]
-        private string? _selectedDevice; // выбранный элемент
+        private bool _isEnablad = true; 
+
+        /// <summary>
+        /// Управляет выбранным элементом
+        /// </summary>
+        [ObservableProperty]
+        private string? _selectedDevice; 
         
         partial void  OnSelectedDeviceChanged(string? value)
         {
             if (value != null)
             {
                 IsListVisible = false;
+                isBusy = true; 
+                IsEnablad = false; 
                 Console.WriteLine($"Выбрано: {value}");
             }
         }
@@ -47,7 +58,7 @@ namespace WemosClock.ViewModels
         private async Task Search()
         {
             Devices.Clear();
-            isSearch = true; 
+            isBusy = true; 
             count = 0;
 
             for (int i = 0; i < Rnd.Next(2, 50); i++)
@@ -56,17 +67,23 @@ namespace WemosClock.ViewModels
                 Devices.Add($"[ {count += 1} ]\t" + DateTime.Now);
             }
 
-            isSearch = false;
+            isBusy = false;
         }
         
         [RelayCommand]
         private void Clear()
         {
-            if(!isSearch)
+            if(!isBusy)
                 Devices.Clear();
         }
 
         [RelayCommand]
-        private void ShowList() => IsListVisible = true;
+        private void ShowList()
+        {
+            IsListVisible = true;
+            isBusy = false; 
+            IsEnablad = true;
+        }
+
     }
 }
