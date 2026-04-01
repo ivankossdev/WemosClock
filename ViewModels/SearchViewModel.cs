@@ -3,11 +3,19 @@ using CommunityToolkit.Mvvm.Input;
 using System.Threading.Tasks;
 using System;
 using System.Collections.ObjectModel;
+using WemosClock.Services; 
 
 namespace WemosClock.ViewModels
 {
     public partial class SearchViewModel : ObservableObject
     {
+        private readonly IComportService _comportService;
+
+        public SearchViewModel(IComportService comportService)
+        {
+            _comportService = comportService;
+        }
+
         readonly Random Rnd = new();
         /// <summary>
         /// Найденные устройства
@@ -20,11 +28,6 @@ namespace WemosClock.ViewModels
         /// </summary>
         [ObservableProperty]
         private bool _isListVisible = true;  
-
-        /// <summary>
-        /// Количество найденных устройств
-        /// </summary>
-        private int count = 0; 
 
         /// <summary>
         /// Блокирует очистку списка пока идет поиск оборудования 
@@ -45,7 +48,6 @@ namespace WemosClock.ViewModels
 
         [ObservableProperty]
         private string _resultText  = string.Empty;
-        
         partial void  OnSelectedDeviceChanged(string? value)
         {
             if (value != null)
@@ -65,16 +67,28 @@ namespace WemosClock.ViewModels
         private async Task Search()
         {
             Devices.Clear();
-            isBusy = true; 
-            count = 0;
+            isBusy = true;
+            IsEnablad = false; // если нужно блокировать кнопки
 
-            for (int i = 0; i < Rnd.Next(2, 10); i++)
+            try
             {
-                await Task.Delay(Rnd.Next(100, 1500)); // имитация долгой операции
-                Devices.Add($"[ {count += 1} ]\t" + DateTime.Now);
+                var devices = await _comportService.SearchDevicesAsync();
+                int index = 0;
+                foreach (var device in devices)
+                {
+                    Devices.Add($"[ {++index} ] {device}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Devices.Add($"Ошибка: {ex.Message}");
+            }
+            finally
+            {
+                isBusy = false;
+                IsEnablad = true;
             }
 
-            isBusy = false;
         }
         
         /// <summary>
