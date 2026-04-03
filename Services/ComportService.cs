@@ -56,7 +56,7 @@ public class ComportService : IComportService
     {
         SerialPort port = (SerialPort)sender;
         string data = port.ReadExisting();
-        Console.WriteLine($"Получено: {data.Trim()}");
+        Console.WriteLine($"{data.TrimEnd()}");
     }
 
     /// <summary>
@@ -66,7 +66,6 @@ public class ComportService : IComportService
     public bool Open()
     {   
         _serialPort.Open();
-        System.Console.WriteLine($"Serial open {_serialPort.IsOpen}");
         return _serialPort.IsOpen;
     }
 
@@ -77,7 +76,14 @@ public class ComportService : IComportService
     public bool Close()
     {
         _serialPort.Close();
-        System.Console.WriteLine($"Serial open {_serialPort.IsOpen}");
         return _serialPort.IsOpen;
+    }
+
+    /// <summary>
+    /// Закрывает порт 
+    /// </summary>
+    /// <param name="message"></param>
+    public void Write(string message){
+        _serialPort.WriteLine(message);
     }
 }

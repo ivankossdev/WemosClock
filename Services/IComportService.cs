@@ -9,4 +9,5 @@ public interface IComportService
     void Init(string comport, int baudRate);
     public bool Open();
     public bool Close();
+    public void Write(string message);
 }

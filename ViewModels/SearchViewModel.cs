@@ -58,6 +58,7 @@ namespace WemosClock.ViewModels
                 ResultText = $"Выбрано: {value}"; 
                 _comportService.Init(value, 115200);
                 _comportService.Open();
+                _comportService.Write("help");
             }
         }
 
