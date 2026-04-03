@@ -54,9 +54,13 @@ public class ComportService : IComportService
     /// <param name="e"></param>
     public void SerialPortDataReceived(object sender, SerialDataReceivedEventArgs e)
     {
-        SerialPort port = (SerialPort)sender;
-        string data = port.ReadExisting();
-        Console.WriteLine($"{data.TrimEnd()}");
+        try
+        {
+            SerialPort port = (SerialPort)sender;
+            string data = port.ReadLine();
+            Console.WriteLine($"{data.TrimEnd()}");
+        }
+        catch (TimeoutException) {}
     }
 
     /// <summary>
