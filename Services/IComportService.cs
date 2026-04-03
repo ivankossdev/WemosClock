@@ -5,5 +5,5 @@ namespace WemosClock.Services;
 
 public interface IComportService
 {
-    Task<IEnumerable<string>> SearchDevicesAsync();
+    IEnumerable<string> SearchDevices();
 }

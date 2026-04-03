@@ -64,7 +64,7 @@ namespace WemosClock.ViewModels
         /// </summary>
         /// <returns></returns>
         [RelayCommand]
-        private async Task Search()
+        private void Search()
         {
             Devices.Clear();
             isBusy = true;
@@ -72,11 +72,10 @@ namespace WemosClock.ViewModels
 
             try
             {
-                var devices = await _comportService.SearchDevicesAsync();
-                int index = 0;
+                var devices = _comportService.SearchDevices();
                 foreach (var device in devices)
                 {
-                    Devices.Add($"[ {++index} ] {device}");
+                    Devices.Add(device);
                 }
             }
             catch (Exception ex)

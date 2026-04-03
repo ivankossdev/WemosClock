@@ -1,15 +1,31 @@
-// ComportService.cs
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.IO.Ports;
+using System; 
 
 namespace WemosClock.Services;
 
 public class ComportService : IComportService
 {
-    public async Task<IEnumerable<string>> SearchDevicesAsync()
+    protected static SerialPort _serialPort = new();
+    List<string> _portList = []; 
+
+    /// <summary>
+    /// Поиск устройств 
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<string> SearchDevices()
     {
-        // Имитация длительного поиска
-        await Task.Delay(1000);
-        return new List<string> { "Устройство 1", "Устройство 2", "Устройство 3" };
+        string[] ports = SerialPort.GetPortNames();
+        _portList.Clear();
+
+        if (ports.Length > 0)
+        {
+            for (int i = 0; i < ports.Length; i++)
+            {
+                _portList.Add($"[ {i} ] {ports[i]}");
+            }
+        }
+        return _portList;
     }
 }
