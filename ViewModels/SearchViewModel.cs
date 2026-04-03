@@ -16,7 +16,6 @@ namespace WemosClock.ViewModels
             _comportService = comportService;
         }
 
-        readonly Random Rnd = new();
         /// <summary>
         /// Найденные устройства
         /// </summary>
@@ -48,6 +47,11 @@ namespace WemosClock.ViewModels
 
         [ObservableProperty]
         private string _resultText  = string.Empty;
+
+        /// <summary>
+        /// Обработчик нажатия на устройство
+        /// </summary>
+        /// <param name="value"></param>
         partial void  OnSelectedDeviceChanged(string? value)
         {
             if (value != null)
