@@ -56,6 +56,8 @@ namespace WemosClock.ViewModels
                 isBusy = true; 
                 IsEnablad = false; 
                 ResultText = $"Выбрано: {value}"; 
+                _comportService.Init(value, 115200);
+                _comportService.Open();
             }
         }
 
@@ -111,6 +113,7 @@ namespace WemosClock.ViewModels
             IsEnablad = true;
             SelectedDevice = null;
             ResultText = string.Empty;
+            _comportService.Close();
         }
     }
 }

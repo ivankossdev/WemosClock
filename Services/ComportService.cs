@@ -23,9 +23,61 @@ public class ComportService : IComportService
         {
             for (int i = 0; i < ports.Length; i++)
             {
-                _portList.Add($"[ {i} ] {ports[i]}");
+                _portList.Add($"{ports[i]}");
             }
         }
         return _portList;
+    }
+
+    /// <summary>
+    /// Инициализация порта
+    /// </summary>
+    /// <param name="comport"></param>
+    /// <param name="baudRate"></param>
+    public void Init(string comport, int baudRate)
+    {
+        _serialPort.PortName = comport;
+        _serialPort.BaudRate = baudRate;
+        _serialPort.DataBits = 8;
+        _serialPort.DtrEnable = true;
+
+        _serialPort.ReadTimeout = 500;
+        _serialPort.WriteTimeout = 500;
+        _serialPort.Handshake = Handshake.None;
+        _serialPort.DataReceived += SerialPortDataReceived;
+    }
+
+    /// <summary>
+    /// Выводит данные по событию SerialDataReceivedEventArgs
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void SerialPortDataReceived(object sender, SerialDataReceivedEventArgs e)
+    {
+        SerialPort port = (SerialPort)sender;
+        string data = port.ReadExisting();
+        Console.WriteLine($"Получено: {data.Trim()}");
+    }
+
+    /// <summary>
+    /// Открывает порт для чтения или записи данных
+    /// </summary>
+    /// <returns></returns>
+    public bool Open()
+    {   
+        _serialPort.Open();
+        System.Console.WriteLine($"Serial open {_serialPort.IsOpen}");
+        return _serialPort.IsOpen;
+    }
+
+    /// <summary>
+    /// Закрывает порт 
+    /// </summary>
+    /// <returns></returns>
+    public bool Close()
+    {
+        _serialPort.Close();
+        System.Console.WriteLine($"Serial open {_serialPort.IsOpen}");
+        return _serialPort.IsOpen;
     }
 }
