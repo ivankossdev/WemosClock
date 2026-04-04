@@ -60,7 +60,6 @@ public class ComportService : IComportService
             SerialPort port = (SerialPort)sender;
             string data = port.ReadLine();
             DataReceived?.Invoke(data.TrimEnd());
-            //Console.WriteLine($"{data.TrimEnd()}");
         }
         catch (TimeoutException) {}
     }

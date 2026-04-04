@@ -60,7 +60,7 @@ namespace WemosClock.ViewModels
                 IsListVisible = false;
                 isBusy = true; 
                 IsEnablad = false; 
-                ResultText = $"Выбрано: {value}"; 
+                ResultText = $"Выбрано: {value}\n"; 
                 _comportService.Init(value, 115200);
                 _comportService.Open();
                 // Подписка на событие получения данных
@@ -137,6 +137,13 @@ namespace WemosClock.ViewModels
             _comportService.Close();
             // Отписка от событий
             _comportService.DataReceived -= OnDataReceived;
+        }
+
+        [RelayCommand]
+        private void GetIp()
+        {
+            ResultText = string.Empty;
+            _comportService.Write("get ip");
         }
     }
 }

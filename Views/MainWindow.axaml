@@ -78,13 +78,20 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
-                    <Button Content="Вернуть"
-                            Command="{Binding ShowListCommand}"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Grid.Row="0"/>
-
+                    <DockPanel>
+                        <Button Content="Вернуть"
+                                Command="{Binding ShowListCommand}"
+                                Margin="0,0,5,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Grid.Row="0"/>
+                        <Button Content="get ip" 
+                                Command="{Binding GetIpCommand}"
+                                Margin="0,0,5,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Grid.Row="0"/>
+                    </DockPanel>
                     <TextBox Text="{Binding ResultText}"
                             IsReadOnly="True"
                             TextWrapping="Wrap"
