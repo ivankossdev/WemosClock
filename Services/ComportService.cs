@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.IO.Ports;
-using System; 
+using System;
+using System.Text;
 
 namespace WemosClock.Services;
 
@@ -53,15 +54,29 @@ public class ComportService : IComportService
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
+    private StringBuilder _buffer = new StringBuilder();
+
     public void SerialPortDataReceived(object sender, SerialDataReceivedEventArgs e)
     {
         try
         {
             SerialPort port = (SerialPort)sender;
-            string data = port.ReadLine();
-            DataReceived?.Invoke(data.TrimEnd());
+            string data = port.ReadExisting();
+            _buffer.Append(data);
+            
+            // Обрабатываем полные строки (разделитель '\n')
+            string current = _buffer.ToString();
+            int newlinePos;
+            while ((newlinePos = current.IndexOf('\n')) >= 0)
+            {
+                string line = current.Substring(0, newlinePos).TrimEnd('\r');
+                _buffer.Remove(0, newlinePos + 1);
+                current = _buffer.ToString();
+                DataReceived?.Invoke(line);
+            }
         }
-        catch (TimeoutException) {}
+        catch (TimeoutException) { }
+        catch (InvalidOperationException) { }
     }
 
     /// <summary>
