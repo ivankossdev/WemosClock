@@ -7,6 +7,7 @@ namespace WemosClock.Services;
 
 public class ComportService : IComportService
 {
+    public event Action<string>? DataReceived;
     protected static SerialPort _serialPort = new();
     List<string> _portList = []; 
 
@@ -58,7 +59,7 @@ public class ComportService : IComportService
         {
             SerialPort port = (SerialPort)sender;
             string data = port.ReadLine();
-            Console.WriteLine($"{data.TrimEnd()}");
+            DataReceived?.Invoke(data.TrimEnd());
         }
         catch (TimeoutException) {}
     }

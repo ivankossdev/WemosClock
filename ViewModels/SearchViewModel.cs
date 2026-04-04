@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System;
 using System.Collections.ObjectModel;
 using WemosClock.Services; 
+using Avalonia.Threading;
 
 namespace WemosClock.ViewModels
 {
@@ -59,11 +60,26 @@ namespace WemosClock.ViewModels
                 IsListVisible = false;
                 isBusy = true; 
                 IsEnablad = false; 
-                ResultText = $"Выбрано: {value}"; 
+                ResultText = $"Выбрано: {value}\n"; 
                 _comportService.Init(value, 115200);
                 _comportService.Open();
+                // Подписка на событие получения данных
+                _comportService.DataReceived += OnDataReceived;
                 _comportService.Write("help");
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        private void OnDataReceived(string data)
+        {
+            // Обновляем UI в потоке диспетчера
+            Dispatcher.UIThread.Invoke(() =>
+            {
+                ResultText += data + "\n";
+            });
         }
 
         /// <summary>
@@ -119,6 +135,15 @@ namespace WemosClock.ViewModels
             SelectedDevice = null;
             ResultText = string.Empty;
             _comportService.Close();
+            // Отписка от событий
+            _comportService.DataReceived -= OnDataReceived;
+        }
+
+        [RelayCommand]
+        private void GetIp()
+        {
+            ResultText = string.Empty;
+            _comportService.Write("get ip");
         }
     }
 }
