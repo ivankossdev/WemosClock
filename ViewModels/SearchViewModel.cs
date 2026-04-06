@@ -15,7 +15,13 @@ namespace WemosClock.ViewModels
         public SearchViewModel(IComportService comportService)
         {
             _comportService = comportService;
-        }
+        } 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [ObservableProperty]
+        public string _searchDevices = "Найденные устройства"; 
 
         /// <summary>
         /// Найденные устройства
@@ -60,7 +66,7 @@ namespace WemosClock.ViewModels
                 IsListVisible = false;
                 isBusy = true; 
                 IsEnablad = false; 
-                ResultText = $"Выбрано: {value}\n"; 
+                SearchDevices = $"Выбрано: {value}"; 
                 _comportService.Init(value, 115200);
                 _comportService.Open();
                 // Подписка на событие получения данных
@@ -134,6 +140,7 @@ namespace WemosClock.ViewModels
             IsEnablad = true;
             SelectedDevice = null;
             ResultText = string.Empty;
+            SearchDevices = "Найденные устройства";
             _comportService.Close();
             // Отписка от событий
             _comportService.DataReceived -= OnDataReceived;
