@@ -1,0 +1,17 @@
+[Desktop Entry]
+# Тип файла: приложение
+Type=Application
+# Версия стандарта .desktop
+Version=1.0
+# Имя, которое будет отображаться в меню
+Name=WemosClock
+# Краткое описание (появляется при наведении)
+Comment=Настрока часов через com-port
+# Команда для запуска
+Exec=/opt/WemosClock/WemosClock
+# Путь к иконке (абсолютный)
+#Icon=/opt/моя_программа/иконка.png
+# Запускать в терминале? false для GUI-приложений
+Terminal=false
+# Категория, чтобы программа появилась в нужном разделе меню
+Categories=Development;Utility;
