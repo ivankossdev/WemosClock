@@ -11,6 +11,7 @@ namespace WemosClock.ViewModels
     public partial class SearchViewModel : ObservableObject
     {
         private readonly IComportService _comportService;
+        readonly Commands commands = new(); 
 
         public SearchViewModel(IComportService comportService)
         {
@@ -147,10 +148,18 @@ namespace WemosClock.ViewModels
         }
 
         [RelayCommand]
-        private void GetIp()
+        private void SetTime()
         {
-            ResultText = string.Empty;
-            _comportService.Write("get ip");
+            ResultText += $"cmd: {commands.GetSystemTime()}\n";
+            // ResultText += $"cmd: {commands.GetSystemDate()}\n";
+            _comportService.Write(commands.GetSystemTime());
+            // _comportService.Write(commands.GetSystemDate());
+        }
+        [RelayCommand]
+        private void SetDate()
+        {
+            ResultText += $"cmd: {commands.GetSystemDate()}\n";
+            _comportService.Write(commands.GetSystemDate());
         }
     }
 }
