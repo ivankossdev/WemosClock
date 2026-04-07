@@ -10,7 +10,7 @@ Comment=Настрока часов через com-port
 # Команда для запуска
 Exec=/opt/WemosClock/WemosClock
 # Путь к иконке (абсолютный)
-#Icon=/opt/моя_программа/иконка.png
+#Icon=/opt/WemosClock/clock.png
 # Запускать в терминале? false для GUI-приложений
 Terminal=false
 # Категория, чтобы программа появилась в нужном разделе меню
