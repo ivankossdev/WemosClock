@@ -11,12 +11,14 @@ namespace WemosClock.ViewModels
     public partial class SearchViewModel : ViewModelBase
     {
         private readonly IComportService _comportService;
-        readonly Commands commands = new(); 
 
         public SearchViewModel(IComportService comportService)
         {
             _comportService = comportService;
         } 
+
+        [ObservableProperty]
+        private string _greeting = "Поиск устройств";
 
         /// <summary>
         /// 
@@ -35,11 +37,6 @@ namespace WemosClock.ViewModels
         /// </summary>
         [ObservableProperty]
         private bool _isListVisible = true;  
-
-        /// <summary>
-        /// Блокирует очистку списка пока идет поиск оборудования 
-        /// </summary>
-        private bool isBusy = false; 
 
         /// <summary>
         /// Делает активной кнопку либо неактивной. 
@@ -65,28 +62,9 @@ namespace WemosClock.ViewModels
             if (value != null)
             {
                 IsListVisible = false;
-                isBusy = true; 
                 IsEnablad = false; 
                 SearchDevices = $"Выбрано: {value}"; 
-                _comportService.Init(value, 115200);
-                _comportService.Open();
-                // Подписка на событие получения данных
-                _comportService.DataReceived += OnDataReceived;
-                _comportService.Write("help");
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-        private void OnDataReceived(string data)
-        {
-            // Обновляем UI в потоке диспетчера
-            Dispatcher.UIThread.Invoke(() =>
-            {
-                ResultText += data + "\n";
-            });
         }
 
         /// <summary>
@@ -97,8 +75,7 @@ namespace WemosClock.ViewModels
         private void Search()
         {
             Devices.Clear();
-            isBusy = true;
-            IsEnablad = false; // если нужно блокировать кнопки
+            IsEnablad = false; 
 
             try
             {
@@ -114,52 +91,10 @@ namespace WemosClock.ViewModels
             }
             finally
             {
-                isBusy = false;
                 IsEnablad = true;
             }
 
         }
-        
-        /// <summary>
-        /// Очищает список найденных устройств
-        /// </summary>
-        [RelayCommand]
-        private void Clear()
-        {
-            if(!isBusy)
-                Devices.Clear();
-        }
-
-        /// <summary>
-        /// Возвращает к списку оборудования и очищает переменные
-        /// </summary>
-        [RelayCommand]
-        private void ShowList()
-        {
-            IsListVisible = true;
-            isBusy = false; 
-            IsEnablad = true;
-            SelectedDevice = null;
-            ResultText = string.Empty;
-            SearchDevices = "Найденные устройства";
-            _comportService.Close();
-            // Отписка от событий
-            _comportService.DataReceived -= OnDataReceived;
-        }
-
-        [RelayCommand]
-        private void SetTime()
-        {
-            ResultText += $"cmd: {commands.GetSystemTime()}\n";
-            // ResultText += $"cmd: {commands.GetSystemDate()}\n";
-            _comportService.Write(commands.GetSystemTime());
-            // _comportService.Write(commands.GetSystemDate());
-        }
-        [RelayCommand]
-        private void SetDate()
-        {
-            ResultText += $"cmd: {commands.GetSystemDate()}\n";
-            _comportService.Write(commands.GetSystemDate());
-        }
     }
+    
 }

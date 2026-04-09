@@ -3,14 +3,11 @@
         xmlns:vm="using:WemosClock.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:conv="clr-namespace:Avalonia.Data.Converters;assembly=Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="WemosClock.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
         Title="WemosClock"
-        Width="800"
-        Height="400">
+        Width="800" Height="400">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -27,17 +24,14 @@
         <DockPanel Grid.Column="0" Margin="10">
 
             <StackPanel>
-                <TextBlock Text="{Binding Greeting}" FontWeight="Bold" Margin="0,5"/>
+                <TextBlock Text="{Binding SearchVM.Greeting}" FontWeight="Bold" Margin="0,5"/>
                 <Button Content="Найти" 
                         Command="{Binding SearchVM.SearchCommand}"
                         IsEnabled="{Binding SearchVM.IsEnablad}"
                         Margin="0,0,0,5"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
-                        Width="85" 
-                        />
-                <Button Command="{Binding SearchVM.ClearCommand}"  Content="Очистить"     
-                        Margin="0,0,0,5" />
+                        Width="85"/>
             </StackPanel>
         </DockPanel>
 
@@ -50,7 +44,7 @@
         <!-- Cодержимое правой колонки -->
         <ContentControl Grid.Column="2" 
                 Margin="10" 
+                Content="{Binding CurrentViewModel}"
                 ContentTemplate="{StaticResource ViewLocator}" />
-                <!-- Content="{Binding CurrentViewModel}"  -->
     </Grid>
 </Window>

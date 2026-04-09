@@ -6,12 +6,14 @@ namespace WemosClock.ViewModels;
 public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty]
-    private string _greeting = "Поиск устройств";
+    private object _currentViewModel;
 
     public SearchViewModel SearchVM { get; }
 
     public MainWindowViewModel(SearchViewModel searchViewModel)
     {
         SearchVM = searchViewModel;
+        CurrentViewModel = searchViewModel;
+        
     }
 }

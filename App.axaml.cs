@@ -19,7 +19,7 @@ public class App : Application
     {
         var services = new ServiceCollection();
         services.AddSingleton<IComportService, ComportService>();
-        services.AddTransient<SearchViewModel>();
+        services.AddSingleton<SearchViewModel>();
         services.AddTransient<MainWindowViewModel>();
 
         var serviceProvider = services.BuildServiceProvider();
@@ -29,7 +29,7 @@ public class App : Application
             var mainWindowViewModel = serviceProvider.GetRequiredService<MainWindowViewModel>();
             desktop.MainWindow = new MainWindow
             {
-                DataContext = mainWindowViewModel
+                DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>()
             };
         }
 
