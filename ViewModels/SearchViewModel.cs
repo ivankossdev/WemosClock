@@ -8,7 +8,7 @@ using Avalonia.Threading;
 
 namespace WemosClock.ViewModels
 {
-    public partial class SearchViewModel : ObservableObject
+    public partial class SearchViewModel : ViewModelBase
     {
         private readonly IComportService _comportService;
         readonly Commands commands = new(); 

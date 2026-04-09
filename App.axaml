@@ -3,11 +3,10 @@
              x:Class="WemosClock.App"
              xmlns:local="using:WemosClock"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
-
-    <Application.DataTemplates>
-        <local:ViewLocator/>
-    </Application.DataTemplates>
+             
+    <Application.Resources>
+        <local:ViewLocator x:Key="ViewLocator" />
+    </Application.Resources>
   
     <Application.Styles>
         <FluentTheme />

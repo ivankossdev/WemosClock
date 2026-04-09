@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="clr-namespace:Avalonia.Data.Converters;assembly=Avalonia"
+             xmlns:vm="using:WemosClock.ViewModels"
+             x:Class="WemosClock.Views.SearchView"
+             x:DataType="vm:SearchViewModel">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Text="{Binding SearchDevices}" 
+                   FontWeight="Bold" 
+                   Margin="0,5"/>
+
+        <Grid Grid.Row="1" Margin="0,5">
+            <ListBox ItemsSource="{Binding Devices}"
+                     SelectedItem="{Binding SelectedDevice}"
+                     IsVisible="{Binding IsListVisible}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <StackPanel IsVisible="{Binding IsListVisible, Converter={x:Static BoolConverters.Not}}"
+                        Spacing="10">
+                <TextBox Text="{Binding ResultText}"
+                         IsReadOnly="True"
+                         TextWrapping="Wrap"
+                         VerticalAlignment="Stretch"
+                         HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

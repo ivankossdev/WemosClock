@@ -3,7 +3,7 @@
 
 namespace WemosClock.ViewModels;
 
-public partial class MainWindowViewModel : ObservableObject
+public partial class MainWindowViewModel : ViewModelBase
 {
     [ObservableProperty]
     private string _greeting = "Поиск устройств";
