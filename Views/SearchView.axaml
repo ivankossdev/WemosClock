@@ -25,15 +25,6 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-
-            <StackPanel IsVisible="{Binding IsListVisible, Converter={x:Static BoolConverters.Not}}"
-                        Spacing="10">
-                <TextBox Text="{Binding ResultText}"
-                         IsReadOnly="True"
-                         TextWrapping="Wrap"
-                         VerticalAlignment="Stretch"
-                         HorizontalAlignment="Stretch"/>
-            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>
